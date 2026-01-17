@@ -14,7 +14,8 @@
 % Title
 % \title[Geração de Mapas com LLMs]{\huge\textbf{Geração de Mapas com LLMs para Roguelikes}}
 % Subtitle
-\subtitle{Geração de Mapas para Jogos Roguelike a Partir de Descrições Textuais Utilizando Modelos de Linguagem de Larga Escala }
+\subtitle{Geração de Mapas para Jogos Roguelike a Partir de Descrições Textuais
+Utilizando Modelos de Linguagem de Larga Escala }
 % Author of the presentation
 \author{Gustavo Gurgel (Orientador: Cristiano Bacelar)}
 % Institute's Name
@@ -55,30 +56,30 @@
 
 %% ---------------------------------------------------------------------------
 % This presentation is separated by sections and subsections
-\section{Seção I}
-\begin{frame}{Explicações}
-    % itemize
-    Este é um template que pode ser utilizado para \nocite{}:
-    \begin{itemize}
-        \item Apresentação de Trabalhos Acadêmicos
-        \item Apresentação de Disciplinas
-        \item Apresentações de Teses e Dissertações
-    \end{itemize}
+% \section{Seção I}
+% \begin{frame}{Explicações}
+%     % itemize
+%     Este é um template que pode ser utilizado para \nocite{}:
+%     \begin{itemize}
+%         \item Apresentação de Trabalhos Acadêmicos
+%         \item Apresentação de Disciplinas
+%         \item Apresentações de Teses e Dissertações
+%     \end{itemize}
 
-    \vspace{0.4cm} % vertical space
+%     \vspace{0.4cm} % vertical space
 
-    % enumeration
-    Para utilizar este template corretamente é importante que:
-    \begin{enumerate}
-        \item Tenha conhecimento mínimo sobre LaTeX
-        \item Ler os comentários no template (explicações)
-        \item Ler o README.md (documentação)
-    \end{enumerate}
+%     % enumeration
+%     Para utilizar este template corretamente é importante que:
+%     \begin{enumerate}
+%         \item Tenha conhecimento mínimo sobre LaTeX
+%         \item Ler os comentários no template (explicações)
+%         \item Ler o README.md (documentação)
+%     \end{enumerate}
 
-    \vspace{0.2cm}
+%     \vspace{0.2cm}
 
-    \example{Este é um texto de exemplo!} \emph{Texto de Ênfase!}
-\end{frame}
+%     \example{Este é um texto de exemplo!} \emph{Texto de Ênfase!}
+% \end{frame}
 
 % %% ---------------------------------------------------------------------------
 % \subsection{Subseção I}
@@ -158,18 +159,127 @@
 
 %% ---------------------------------------------------------------------------
 % This frame show an example to insert multicolumns
-\section{Multicolunas}
-\begin{frame}{Seção II - Multicolunas}
+\section{Introdução}
+\begin{frame}{Panorama Atual do Mercado de Jogos}
+
     \begin{columns}{}
-        \begin{column}{0.5\textwidth}
-            \justify
-            É possível colocar mais de uma coluna utilizando os comandos de $\backslash$begin\{column\}\{\} e $\backslash$end\{column\}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Global games market: growth drivers and challenges for 2025-2027}
+                \includegraphics[width=6cm]{images/games_2015_2027_revenue.png}
+                \source{Newzoo}
+            \end{figure}
         \end{column}
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.4\textwidth}
             \justify
-            Porém, o espaçamento deve ser proporcional entre as colunas para que estas colunas não entrem em coflito. O espaçamento é dado pelo segundo argumento do $\backslash$begin.
+            \small{O gráfico demonstra o crescimento constante do mercado global de
+                jogos de 2015 a 2027, com uma previsão de aumento de 3.7\% da sua
+                receita entre 2025 e 2027. Com uma renda prevista de \textbf{\$198
+                    bilhões} em 2027, evidencia a importância desse mercado na economia
+                atual.}
         \end{column}
     \end{columns}
+\end{frame}
+
+\begin{frame}{Crescimentos dos Jogos Roguelikes}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Balatro}
+                \includegraphics[width=6cm]{images/balatro.jpg}
+                \source{Wikipedia}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            \small{Balatro é um roguelike de construção de baralhos. \textbf{Foi um dos
+                    6 jogos indicados para jogo do ano no The Game Awards 2024}. Isso
+                mostra que, mesmo sendo um gênero antigo, ainda possui grande
+                destaque no mercado de jogos.}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Crescimentos dos Jogos Roguelikes}
+    \begin{figure}
+        \centering
+        \caption{Hell Clock (2025): Roguelike brasileiro inspirado na Guerra dos Canudos}
+        \includegraphics[width=10cm]{images/hellclock.png}
+        \source{Steam}
+        \label{fig:ufc_emblem}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Geração Procedural de Conteúdo (PCG)}
+    \begin{figure}
+        \centering
+        \caption{Mapas gerados utilizando PCG (The Binding of Isaac)}
+        \includegraphics[width=9cm]{images/bind_of_issac_maps.png}
+        \source{Level Generation by Joining Geometry \cite{e2020procedural}}
+    \end{figure}
+    \small{Uma das principais características dos jogos Roguelike é a presença
+        de conteúdos gerados proceduralmente. Ou seja, conteúdos gerados por
+        algoritmos, geralmente utilizam geradores de números pseudo aleatórios.}
+\end{frame}
+
+\begin{frame}{Geração Procedural de Conteúdo (PCG)}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Gerador de Mapas com Diversos Parâmetros de Configuração}
+                \includegraphics[width=6cm]{images/pcg_config.png}
+                \source{Regressão para Predição de Mapas Gerados Proceduralmente. \cite{marchandaplicaccao}}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            \small{A geração desses conteúdos geralmente pode ser controlada por
+                parâmetros como tamanho do objeto gerado, quantidades de elementos ou até
+                sementes para o gerador pseudo aleatório.}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{PCG + LLMs}
+    \begin{figure}
+        \centering
+        \caption{Arquitetura do MarioGPT}
+        \includegraphics[width=6cm]{images/mario_gpt.png}
+        \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models \cite{sudhakaran2023mariogpt}}
+    \end{figure}
+    \small{Com o surgimento dos Modelos Transformers Generativos, surgem
+        grandes oportunidades de integrar essa tecnologia na geração
+        procedural de conteúdo em jogos. Um exemplo disso é o \textbf{MarioGPT},
+        projeto que \textbf{utiliza um modelo ajustado do GPT 2 para gerar mapas do
+            jogo Mario}. Nesse projeto, o controle da geração é feito por prompts
+        textuais, tornando a geração mais expressiva do que a configuração
+        de parâmetros predefinidos.  }
+\end{frame}
+
+\begin{frame}{Objetivo Geral}
+    \begin{itemize}
+        \item<2-> Desenvolver um sistema que recebe descrições textuais e, utilizando um LLM, traduz em um nível estruturado e jogável de um jogo no estilo roguelike
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Objetivos Específicos}
+    \begin{itemize}
+        \item<2-> Investigar e aplicar técnicas de engenharia de prompt para guiar o
+              LLM de forma eficaz, assegurando que os mapas gerados sejam coerentes
+              com a descrição textual e respeitem as restrições e convenções do gênero
+              roguelike.
+        \item<3-> Desenvolver um pipeline de geração que receba uma descrição
+              textual como entrada e utilize um LLM para produzir uma representação de
+              mapa estruturada, contendo elementos como salas, corredores, inimigos e
+              itens.
+        \item<4-> Implementar um protótipo funcional que integre o pipeline de
+              geração, capaz de processar os dados do mapa e renderizá-los
+              visualmente, servindo como prova de conceito da abordagem "text-to-map"
+    \end{itemize}
 \end{frame}
 
 %% ---------------------------------------------------------------------------
@@ -183,6 +293,8 @@
         \source{Obtido pelo site oficial da UFC \cite{siteufc} \cite{einstein}}
         \label{fig:ufc_emblem}
     \end{figure}
+
+
 \end{frame}
 
 %% ---------------------------------------------------------------------------
