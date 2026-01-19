@@ -40,14 +40,10 @@ Utilizando Modelos de Linguagem de Larga Escala }
 % insert the code style
 \input{libs/code_style}
 
-%% ---------------------------------------------------------------------------
-% First frame (with tile, subtitle, ...)
 \begin{frame}{}
     \maketitle
 \end{frame}
 
-%% ---------------------------------------------------------------------------
-% Second frame
 \begin{frame}{Sumário}
     \begin{multicols}{2}
         \tableofcontents
@@ -55,110 +51,7 @@ Utilizando Modelos de Linguagem de Larga Escala }
 \end{frame}
 
 %% ---------------------------------------------------------------------------
-% This presentation is separated by sections and subsections
-% \section{Seção I}
-% \begin{frame}{Explicações}
-%     % itemize
-%     Este é um template que pode ser utilizado para \nocite{}:
-%     \begin{itemize}
-%         \item Apresentação de Trabalhos Acadêmicos
-%         \item Apresentação de Disciplinas
-%         \item Apresentações de Teses e Dissertações
-%     \end{itemize}
 
-%     \vspace{0.4cm} % vertical space
-
-%     % enumeration
-%     Para utilizar este template corretamente é importante que:
-%     \begin{enumerate}
-%         \item Tenha conhecimento mínimo sobre LaTeX
-%         \item Ler os comentários no template (explicações)
-%         \item Ler o README.md (documentação)
-%     \end{enumerate}
-
-%     \vspace{0.2cm}
-
-%     \example{Este é um texto de exemplo!} \emph{Texto de Ênfase!}
-% \end{frame}
-
-% %% ---------------------------------------------------------------------------
-% \subsection{Subseção I}
-% \begin{frame}{Criando Blocos}
-%     % Blocks styles
-%     \begin{block}{Bloco Padrão}
-%         Texto do corpo do bloco.
-%     \end{block}
-
-%     \begin{alertblock}{Bloco de Alerta}
-%         Texto do corpo do bloco.
-%     \end{alertblock}
-
-%     \begin{exampleblock}{Bloco de Exemplo}
-%         Texto do corpo do bloco.
-%     \end{exampleblock}
-% \end{frame}
-
-% %% ---------------------------------------------------------------------------
-% \subsection{Subseção II}
-% \begin{frame}{Criando Caixas}
-%     \successbox{testando o success box}
-
-%     \pause
-
-%     \alertbox{testando o alert box}
-
-%     \pause
-
-%     \simplebox{testando o simple box}
-% \end{frame}
-
-% %% ---------------------------------------------------------------------------
-% \subsection{Subseção III}
-% \begin{frame}{Criando Algoritmos (Pseudocódigo)}
-%     \begin{algorithm}[H]
-%         \SetAlgoLined
-%         \LinesNumbered
-%         \SetKwInOut{Input}{input}
-%         \SetKwInOut{Output}{output}
-%         \Input{x: float, y: float}
-%         \Output{r: float}
-%         \While{True}{
-%             r = x + y\;
-%             \eIf{r >= 30}{
-%                 ``O valor de $r$ é maior ou iqual a 10.''\;
-%                 break\;
-%             }{
-%                 ``O valor de $r$ = '', r\;
-%             }
-%         }
-%         \caption{Algorithm Example}
-%     \end{algorithm}
-% \end{frame}
-
-% %% ---------------------------------------------------------------------------
-
-% \begin{frame}{Inserindo Algoritmos}
-%     \lstset{language=Python}
-%     \lstinputlisting[language=Python]{code/main.py}
-% \end{frame}
-
-% %% ---------------------------------------------------------------------------
-% \begin{frame}{Inserindo Algoritmos}
-%     \lstinputlisting[language=C]{code/source.c}
-% \end{frame}
-
-% %% ---------------------------------------------------------------------------
-% \begin{frame}{Inserindo Algoritmos}
-%     \lstinputlisting[language=Java]{code/helloworld.java}
-% \end{frame}
-
-% %% ---------------------------------------------------------------------------
-% \begin{frame}{Inserindo Algoritmos}
-%     \lstinputlisting[language=HTML]{code/index.html}
-% \end{frame}
-
-%% ---------------------------------------------------------------------------
-% This frame show an example to insert multicolumns
 \section{Introdução}
 \begin{frame}{Panorama Atual do Mercado de Jogos}
 
@@ -187,7 +80,7 @@ Utilizando Modelos de Linguagem de Larga Escala }
         \begin{column}{0.6\textwidth}
             \begin{figure}
                 \centering
-                \caption{Balatro}
+                \caption{Balatro (2024)}
                 \includegraphics[width=6cm]{images/balatro.jpg}
                 \source{Wikipedia}
             \end{figure}
@@ -247,54 +140,346 @@ Utilizando Modelos de Linguagem de Larga Escala }
 \begin{frame}{PCG + LLMs}
     \begin{figure}
         \centering
-        \caption{Arquitetura do MarioGPT}
-        \includegraphics[width=6cm]{images/mario_gpt.png}
+        \caption{Geração de Mapas Utilizando Descrições Textuais}
+        \includegraphics[width=8cm]{images/prompt_to_level.png}
         \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models \cite{sudhakaran2023mariogpt}}
     \end{figure}
-    \small{Com o surgimento dos Modelos Transformers Generativos, surgem
-        grandes oportunidades de integrar essa tecnologia na geração
-        procedural de conteúdo em jogos. Um exemplo disso é o \textbf{MarioGPT},
-        projeto que \textbf{utiliza um modelo ajustado do GPT 2 para gerar mapas do
-            jogo Mario}. Nesse projeto, o controle da geração é feito por prompts
-        textuais, tornando a geração mais expressiva do que a configuração
-        de parâmetros predefinidos.  }
+    \small{Com o surgimento dos Modelos Transformers Generativos, surgem grandes
+        oportunidades de integrar essa tecnologia na geração procedural de conteúdo
+        em jogos. Permiteindo que o controle da geração seja feito por prompts
+        textuais, tornando a geração mais expressiva do que a configuração de
+        parâmetros predefinidos. }
 \end{frame}
 
 \begin{frame}{Objetivo Geral}
-    \begin{itemize}
-        \item<2-> Desenvolver um sistema que recebe descrições textuais e, utilizando um LLM, traduz em um nível estruturado e jogável de um jogo no estilo roguelike
-    \end{itemize}
+    \justify
+    Desenvolver um sistema que recebe descrições textuais e, utilizando um LLM, traduz em um nível estruturado e jogável de um jogo no estilo roguelike
 \end{frame}
 
 \begin{frame}{Objetivos Específicos}
     \begin{itemize}
-        \item<2-> Investigar e aplicar técnicas de engenharia de prompt para guiar o
-              LLM de forma eficaz, assegurando que os mapas gerados sejam coerentes
-              com a descrição textual e respeitem as restrições e convenções do gênero
-              roguelike.
-        \item<3-> Desenvolver um pipeline de geração que receba uma descrição
+        \item<1-> Desenvolver um pipeline de geração que receba uma descrição
               textual como entrada e utilize um LLM para produzir uma representação de
-              mapa estruturada, contendo elementos como salas, corredores, inimigos e
-              itens.
-        \item<4-> Implementar um protótipo funcional que integre o pipeline de
+              mapa estruturada.
+        \item<2-> Investigar e aplicar técnicas de engenharia de prompt para guiar o
+              LLM de forma eficaz.
+        \item<3-> Implementar um protótipo funcional que integre o pipeline de
               geração, capaz de processar os dados do mapa e renderizá-los
-              visualmente, servindo como prova de conceito da abordagem "text-to-map"
+              visualmente.
     \end{itemize}
 \end{frame}
 
-%% ---------------------------------------------------------------------------
-% This frame show an example to insert figures
-\section{Imagens}
-\begin{frame}{Seção III - Figures}
+\section{Fundamentação}
+\begin{frame}{Oriegem dos Roguelikes}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Rogue (1980)}
+                \includegraphics[width=6cm]{images/rogue1980.png}
+                \source{Wikipedia}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            \small {Em 1980 surge \textbf{Rogue}, um jogo de terminal onde o
+                jogador explorar masmorras geradas aleatoriamente, enfrentando
+                monstros, coletando itens e tentando chegar ao final em uma única
+                vida.}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Oriegem dos Roguelikes}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Rogue (1980)}
+                \includegraphics[width=6cm]{images/rogue1980.png}
+                \source{Wikipedia}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            \small{ Esse jogo foi tão marcante que deu origem a um gênero
+                inteiro chamado Roguelike, que se baseia em elementos como:}
+            \begin{itemize}
+                \item <2-> Geração procedural.
+                \item <3-> Permadeath (morte permanente).
+                \item <4-> Exploração estratégica.
+                \item <5-> Alta rejogabilidade.
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Procedural Content Generation (PCG)}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Diferentes Métodos de PCG}
+                \includegraphics[width=6cm]{images/pcg_methods.png}
+                \source{antoniosliapis.com}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \small{Procedural Content Generator (PCG) é uma técnica utilizada
+                no desenvolvimento de jogos para \textbf{criar conteúdo de forma
+                    automática, por meio de algoritmos e regras predefinidas}.}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% \begin{frame}{PCG Exemplo Random walk}
+%     Um exemplo muito simples de algoritmo de PCG é o \textbf{Random Walk}. Esse
+%     algoritmo gera caminhos aleatórios que podem ser utilizados para estruturar
+%     um mapa de um jogo. Ele é consiste na seguinte sequência de passos:
+%     \begin{enumerate}
+%         \item <2-> Começa em uma posição inicial.
+%         \item <3-> Anda aleatoriamente em uma das quatro direções.
+%         \item <4-> Marca os espaços por onde passa como "caminho"
+%         \item <5-> Repete esse processo por um número definido de passos ou até
+%               atingir uma porcentagem do mapa marcado.
+%     \end{enumerate}
+% \end{frame}
+
+% \begin{frame}{PCG Exemplo Random walk}
+%     \centering
+%     \only<1>{
+%         \begin{figure}
+%             \caption{Random Walk - Parte 1}
+%             \includegraphics[width=6cm]{images/randomwalk1.png}
+%             \source{Wikipedia}
+%         \end{figure}
+%     }
+%     \only<2>{
+%         \begin{figure}
+%             \caption{Random Walk - Parte 2}
+%             \includegraphics[width=6cm]{images/randomwalk2.png}
+%             \source{Wikipedia}
+%         \end{figure}
+%     }
+%     \only<3>{
+%         \begin{figure}
+%             \caption{Random Walk - Parte 3}
+%             \includegraphics[width=6cm]{images/randomwalk3.png}
+%             \source{Wikipedia}
+%         \end{figure}
+%     }
+%     \only<4>{
+%         \begin{figure}
+%             \caption{Random Walk - Parte 4}
+%             \includegraphics[width=6cm]{images/randomwalk4.png}
+%             \source{Wikipedia}
+%         \end{figure}
+%     }
+%     \only<5>{
+%         \begin{figure}
+%             \caption{Random Walk - Parte 5}
+%             \includegraphics[width=6cm]{images/randomwalk5.png}
+%             \source{Wikipedia}
+%         \end{figure}
+%     }
+%     \only<6>{
+%         \begin{figure}
+%             \caption{Random Walk - Parte 6}
+%             \includegraphics[width=6cm]{images/randomwalk6.png}
+%             \source{Wikipedia}
+%         \end{figure}
+%     }
+% \end{frame}
+
+\begin{frame}{Geração de texto com LLMs}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{LLMs}
+                \includegraphics[width=6cm]{images/llms_examples.jpg}
+                \source{blog.n8n.io}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            Em contraste com algoritmos simples que marcam espaços bidimensionais de
+            forma aleatória, temos a \textbf{geração de texto utilizando LLMs}.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Geração de texto com LLMs}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Probabilidades retornadas pela LLM}
+                \includegraphics[width=6cm]{images/llm_probabilities.png}
+                \source{3Blue1Brown}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            Em uma visão de alto nível, LLMs são \textbf{funções matemáticas
+                extremamente sofisticadas} que recebem um trecho de texto como
+            entrada e retornam os tokens com maior probabilidade de
+            continuar esse texto de forma coerente.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Geração de texto com LLMs}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Geração de um Saida da LLM}
+                \includegraphics[width=6cm]{images/llm_generated_text.png}
+                \source{3Blue1Brown}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            \small{ Para gerar uma resposta, o texto é passado para LLM, que
+                calcula quais palavras (ou tokens) têm maior probabilidade de vir em
+                seguida. Uma dessas opções é \textbf{escolhida e anexada ao texto}.
+                Esse novo texto, agora com o token adicionado, é \textbf{usado como
+                    nova entrada para a LLM}. Esse processo se \textbf{repete várias
+                    vezes} até que uma resposta completa seja construída.}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Geração de texto com LLMs}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Processo de Aprendizados das LLMs}
+                \includegraphics[width=6cm]{images/llm_learn.png}
+                \source{3Blue1Brown}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            Os modelos aprendem a fazer predições através do processamento de
+            uma quantidade \textbf{extremamente grande de texto, geralmente adquirido da
+                internet}.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Trabalhos Relacionados}
+\begin{frame}{Word2World}
     \begin{figure}
         \centering
-        \caption{Emblema da UFC.}
-        \includegraphics[scale=0.3]{libs/emblemufc.pdf}
-        \source{Obtido pelo site oficial da UFC \cite{siteufc} \cite{einstein}}
-        \label{fig:ufc_emblem}
+        \caption{Pipeline do Projeto Word2World}
+        \includegraphics[width=9cm]{images/word2world.png}
+        \source{Word2World: Generating Stories and Worlds through Large Language Models \cite{nasir2024word2world}}
     \end{figure}
+    \only<1>{
+        \small{Tanto o trabalho Word2World quanto esse TCC definem um pipeline
+            para a geração de mapas utilizando LLMs sem a necessidade de fine tune
+            prévio.}
+    }
+    \only<2>{
+        \small{ A principal diferença está que no Word2World, a LLM cria a
+            própria história, ou seja, o usuário não tem controle da geração. Além
+            disso, o TCC visa a geração de mapas para jogos Roguelike, enquanto o
+            Word2World não gera mapas para um gênero específico.}
+    }
+\end{frame}
 
+\begin{frame}{MarioGPT}
+    \begin{figure}
+        \centering
+        \caption{Pipeline do Projeto MarioGPT}
+        \includegraphics[width=9cm]{images/mario_gpt.png}
+        \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models\cite{sudhakaran2023mariogpt}}
+    \end{figure}
+    \only<1>{
+        \small{MarioGPT tem o mesmo objetivo de gerar mapas baseados em
+            descrições textuais, mas utiliza uma versão ajustada do GPT 2. A
+            utilização de fine-tuning traz a necessidade de uma grande amostra de
+            treino. No caso do MarioGPT foram utilizadas 200.000 amostras de mapas.}
+    }
+    \only<2>{
+        \small{A proposta do TCC remove a necessidade de fine-tuning ao se
+            utilizar de técnicas de engenharia de prompt. Sem contar a diferença de
+            gêneros, o MarioGPT gera mapas de platformers, enquanto o TCC se propõe
+        }
+    }
+\end{frame}
 
+\begin{frame}{MarioGPT}
+    \begin{figure}
+        \centering
+        \caption{Pipeline do Projeto MarioGPT}
+        \includegraphics[width=9cm]{images/mario_gpt.png}
+        \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models\cite{sudhakaran2023mariogpt}}
+    \end{figure}
+    \only<1>{
+        \small{MarioGPT tem o mesmo objetivo de gerar mapas baseados em
+            descrições textuais, mas utiliza uma versão ajustada do GPT 2. A
+            utilização de fine-tuning traz a necessidade de uma grande amostra de
+            treino. No caso do MarioGPT foram utilizadas 200.000 amostras de mapas.}
+    }
+    \only<2>{
+        \small{A proposta do TCC remove a necessidade de fine-tuning ao se
+            utilizar de técnicas de engenharia de prompt. Sem contar a diferença de
+            gêneros, o MarioGPT gera mapas de platformers, enquanto o TCC se propõe
+            a gerar mapas de Roguelikes.  }
+    }
+\end{frame}
+
+\begin{frame}{Game Environment Design Creator}
+    \begin{figure}
+        \centering
+        \caption{Pipeline e Interface do Projeto}
+        \includegraphics[width=7cm]{images/design_creator.png}
+        \source{Game Environment Design Creator Using Artificial Intelligence Procedural Generation \cite{auxtero2023game}}
+    \end{figure}
+    \only<1>{
+        \small{O trabalho relacionado busca desenvolver uma ferramenta para
+            auxiliar pessoas sem conhecimento de game design e programação a criarem
+            jogos. O usuário escreve uma descrição e a LLM cria uma versão inicial
+            da sala, o que se assemelha com o objetivo text-to-level do TCC.}
+    }
+    \only<2>{
+        \small{Esse trabalho relacionado foca na experiência do usuário.
+            Enquanto esse TCC foca no pipeline de geração. Além disso, o trabalho
+            relacionado cria pequenas salas para jogos de visão de cima e não possui
+            um foco em um gênero específico.  }
+    }
+\end{frame}
+
+\begin{frame}{LLMaker}
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Interface do LLMaker}
+                \includegraphics[width=6cm]{images/llmaker.png}
+                \source{Consistent Game Content Creation via Function Calling for Large Language Models \cite{gallotta2024consistent}}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \justify
+            \only<1>{
+                \small{O objetivo desse projeto é desenvolver uma ferramenta de design onde o
+                    usuário conversa em um chat LLM e então a LLM converte a linguagem
+                    natural em alterações no mapa.}
+            }
+            \only<2>{
+                \small{Uma semelhança ao TCC está na geração de mapas com LMMs para
+                    Dungeon Crawlers, gênero com estrutura muito parecida com os Roguelikes.
+                    Entretanto, o foco desse trabalho relacionado é converter texto do usuário e
+                    modificações no mapa gerado.}
+            }
+        \end{column}
+    \end{columns}
 \end{frame}
 
 %% ---------------------------------------------------------------------------
@@ -304,18 +489,11 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \printbibliography
 \end{frame}
 
-% %% ---------------------------------------------------------------------------
-% % Final frame
-% \begin{frame}{}
-%     \centering
-%     \huge{\textbf{\example{Obrigado(a) pela Atenção!}}}
-
-%     \vspace{1cm}
-
-%     \Large{\textbf{Contato:}}
-%     \newline
-%     \vspace*{0.5cm}
-%     \large{\email{usuario@dominio}}
-% \end{frame}
+%% ---------------------------------------------------------------------------
+% Final frame
+\begin{frame}{}
+    \centering
+    \huge{\textbf{\example{Obrigado(a) pela Atenção!}}}
+\end{frame}
 
 \end{document}
