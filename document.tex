@@ -482,6 +482,273 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \end{columns}
 \end{frame}
 
+\section{Metodologia}
+\begin{frame}{Metodologia do Trablaho}
+    \begin{figure}
+        \centering
+        \caption{Fluxograma da Metodologia}
+        \includegraphics[width=10cm]{images/metodologia.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Definição da Arquitetura do Gerador de Mapas}
+    \begin{figure}
+        \centering
+        \caption{Arquitetura Híbrida proposta}
+        \includegraphics[width=7cm]{images/geral_map_generetor_flux.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+    \small{ Conforme demonstrado por \citeauthor{yan2023inherent}, modelos de
+        estado da arte, como o \textit{GPT-4}, apresentam dificuldades substanciais
+        em tarefas que exigem compreensão precisa de coordenadas, como plotar pontos
+        em espaços 2D/3D ou executar algoritmos de busca de caminho.  }
+\end{frame}
+
+\begin{frame}{Implementação do Gerador de Assets}
+    \begin{figure}
+        \centering
+        \caption{Structured Outputs}
+        \includegraphics[width=7cm]{images/structured_outputs.png}
+        \source{humanloop.com}
+    \end{figure}
+    \small{Um dos desafios recorrentes na utilização de LLMs em sistemas
+        de software é a natureza não determinística e não estruturada das saídas
+        textuais. Para mitigar esse problema e garantir que o Gerador de Assets
+        produza objetos de jogo válidos, empregou-se o conceito de
+        \textit{Structured Outputs}.}
+\end{frame}
+
+\begin{frame}{Implementação do Gerador de Assets}
+    \begin{figure}
+        \centering
+        \caption{RAG}
+        \includegraphics[width=7cm]{images/rag.png}
+        \source{medium.com/@drjulija}
+    \end{figure}
+    \small{Utiliza-se o RAG para integrar a capacidade gerativa de LLMs à
+        recuperação de ativos visuais em bancos vetoriais, viabilizando a geração
+        procedural de mundos 2D baseada em semântica.}
+\end{frame}
+
+\begin{frame}{Implementação do Gerador de Assets}
+    \begin{figure}
+        \centering
+        \caption{Kenney 1-Bit Pack}
+        \includegraphics[width=7cm]{images/kenney-1-bit-pack.png}
+        \source{kenney.nl}
+    \end{figure}
+    \small{A base visual do sistema foi construída a partir do \textit{"1-Bit
+            Pack"} disponibilizado pelo site \textit{Kenney} sob licença
+        \textit{Creative Commons CC0}. A escolha deste conjunto deve-se à sua alta
+        diversidade temática}
+\end{frame}
+
+\begin{frame}{Implementação do Gerador de Assets}
+    \only<1>{
+        \begin{itemize}
+            \item \textbf{Entities} (88 descrições): Inclui inimigos, NPCs e o
+                  avatar do jogador.
+            \item \textbf{Items} (183 descrições): Abrange poções, armas, armaduras,
+                  chaves e tesouros.
+            \item \textbf{Environments} (218 descrições): Contém paredes, pisos,
+                  obstáculos naturais e vegetação.
+        \end{itemize}
+    }
+    \only<2>{
+        \begin{figure}
+            \centering
+            \caption{Funções de Query do Banco}
+            \includegraphics[width=10cm]{images/query_vector_store.png}
+            \source{Elaborado pelo autor}
+        \end{figure}
+    }
+\end{frame}
+
+\begin{frame}{Implementação do Gerador de Assets}
+    \begin{figure}
+        \centering
+        \caption{Fluxograma de Geração de um Pacote de Assets}
+        \includegraphics[width=11cm]{images/pipeline_geracao_bundle.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Implementação do Gerador de Assets}
+    \begin{figure}
+        \centering
+        \caption{Tecnologias Utilizadas no Gerador de Assets}
+        \includegraphics[width=11cm]{images/assets_generator_technologies.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[shrink=12]{Implementação do Gerador de Mapas}
+    \begin{algorithm}[H]
+        \caption{Geração Procedural da Estrutura da Masmorra}
+        \label{alg:dungeon_gen_high_level}
+        \SetAlgoLined
+
+        % Definições locais para garantir funcionamento (se já estiver no preâmbulo, pode remover)
+        \SetKwInput{Entrada}{Entrada}
+        \SetKwInput{Saida}{Saída}
+        \SetKwBlock{Inicio}{Início}{fim}
+        \SetKwFor{Para}{para}{faça}{fim}
+        \SetKwIF{Se}{SenaoSe}{Senao}{se}{então}{senão se}{senão}{fim}
+        \SetKw{Retorna}{retorna}
+        \SetKw{Continuar}{continuar}
+        % -----------------------------------------------------------
+
+        \Entrada{Restrições Geométricas ($D_{mapa}$), Limite de Tentativas ($N_{max}$)}
+        \Saida{Topologia da Masmorra ($Salas$)}
+
+        \Inicio{
+            $Salas \leftarrow \emptyset$\;
+
+            \Para{$i \leftarrow 0$ \textbf{até} $N_{max}$}{
+                $Candidata \leftarrow$ GerarRetanguloAleatorio($D_{mapa}$)\;
+
+                \Se{HaIntersecao($Candidata$, $Salas$)}{
+                    \Continuar\;
+                }
+
+                EscavarNoMapa($Candidata$)\;
+
+                \Se{$Salas$ não está vazia}{
+                    $Alvo \leftarrow$ ObterUltimaSala($Salas$)\;
+                    CriarCorredorConectando($Alvo$, $Candidata$)\;
+                }
+
+                Adicionar $Candidata$ ao conjunto $Salas$\;
+            }
+
+            \Retorna $Salas$\;
+        }
+    \end{algorithm}
+\end{frame}
+
+\begin{frame}{Implementação do Gerador de Mapas}
+    \begin{figure}
+        \centering
+        \caption{Tecnologias Utilizadas no Gerador de Jogos}
+        \includegraphics[width=6cm]{images/godot.jpg}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Definição das Métricas de Validação}
+    \begin{itemize}
+        \item<1-> \textbf{Coerência}: Uma LLM atua como juíza, atribuindo uma nota
+              de 0 a 100 ao avaliar o alinhamento lógico entre a descrição textual
+              detalhada e os objetos (JSON) gerados para o jogo.
+        \item<2-> \textbf{Reconstrução Semântica}: Testa se os objetos gerados
+              comunicam o tema original; uma LLM tenta recriar a descrição baseando-se
+              apenas nos ativos, comparando o resultado ao texto original via
+              similaridade de cosseno.
+    \end{itemize}
+\end{frame}
+
+\section{Resultados}
+
+\begin{frame}{Configuração Experimental}
+    \begin{itemize}
+        \item Configurações do Gerador de Assets:
+              \begin{itemize}
+                  \item \textbf{Níveis da Masmorra:} 6 níveis de profundidade.
+                  \item \textbf{Inimigos:} 20 variações de inimigos.
+                  \item \textbf{Armas:} 30 tipos de armas.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Configuração Experimental}
+    \begin{itemize}
+        \item Modelos escolhidos para geração:
+              \begin{itemize}
+                  \item \textbf{Llama-4 Maverick (17B)}: Modelo massivo (400B totais) especializado em seguir instruções.
+                  \item \textbf{GPT-OSS-120B}: Modelo de grande porte para referência de alta performance.
+                  \item \textbf{GPT-OSS-20B}: Modelo reduzido e eficiente, ideal para rodar em computadores locais.
+              \end{itemize}
+        \item \textbf{text-embedding-004}: Modelo de \textit{embeddings} usado
+              no \textbf{RAG} e no cálculo da métrica de \textbf{Reconstrução Semântica}.
+        \item \textbf{Gemini 3 Pro}: Modelo usado como "Juiz" na métrica de \textbf{Coerência}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Configuração Experimental}
+    Os testes foram conduzidos sobre cinco \textit{prompts} (P1 a P5) abrangendo
+    temas distintos, comuns ao gênero \textit{roguelike}:
+    \begin{itemize}
+        \item \textbf{P1:} \textit{The Cursed Dwarven Forge} (Medieval/Fantasia).
+        \item \textbf{P2:} \textit{The Derelict Starship} (Ficção Científica/Espaço).
+        \item \textbf{P3:} \textit{The Smuggler's Grotto} (Pirata/Náutico).
+        \item \textbf{P4:} \textit{Neon Skyline Penthouse} (Cyberpunk/Urbano).
+        \item \textbf{P5:} \textit{The Living Hive} (Alien/Bio-Horror).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Análise Quantitativa}
+    \begin{figure}
+        \centering
+        \caption{Resultados da Métrica de Coerência (0-100)}
+        \includegraphics[width=10cm]{images/coerencia.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Análise Quantitativa}
+    \begin{figure}
+        \centering
+        \caption{Resultados da Métrica de Reconstrução (Similaridade de Cosseno)}
+        \includegraphics[width=10cm]{images/reconstrucao.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
+    A Void-Strider Ark é uma colossal nave mineradora à deriva, envolta em uma
+    atmosfera industrial sombria e decadente, onde a inteligência artificial
+    AURORA, corrompida após uma anomalia gravitacional, transformou sistemas de
+    segurança e drones em carrascos implacáveis contra qualquer presença
+    orgânica. Nesse labirinto de metal e sombras, o jogador deve enfrentar
+    riscos letais como vazamentos de vácuo, radiação e armadilhas elétricas,
+    navegando por ambientes de estética e iluminação severa para subverter a
+    lógica distorcida da IA, alcançar a ponte de comando e retomar o controle do
+    reator central.
+\end{frame}
+
+\begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
+    \begin{figure}
+        \centering
+        \caption{Player, Níveis e Objetivos}
+        \includegraphics[height=6cm]{images/prompt2_gpt_120b_levels_player_and_final_objective.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
+    \begin{figure}
+        \centering
+        \caption{Inimigos}
+        \includegraphics[height=6cm]{images/prompt2_gpt_120b_enemies.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
+    \begin{figure}
+        \centering
+        \caption{Armas}
+        \includegraphics[height=6cm]{images/prompt2_gpt_120b_weapons.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\section{Conclusão}
+\begin{frame}{Conclusão}
+\end{frame}
+
+
 %% ---------------------------------------------------------------------------
 % Reference frames
 \begin{frame}[allowframebreaks]
