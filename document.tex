@@ -335,28 +335,6 @@ Utilizando Modelos de Linguagem de Larga Escala }
         \begin{column}{0.6\textwidth}
             \begin{figure}
                 \centering
-                \caption{Geração de um Saida da LLM}
-                \includegraphics[width=6cm]{images/llm_generated_text.png}
-                \source{3Blue1Brown}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            \small{ Para gerar uma resposta, o texto é passado para LLM, que
-                calcula quais palavras (ou tokens) têm maior probabilidade de vir em
-                seguida. Uma dessas opções é \textbf{escolhida e anexada ao texto}.
-                Esse novo texto, agora com o token adicionado, é \textbf{usado como
-                    nova entrada para a LLM}. Esse processo se \textbf{repete várias
-                    vezes} até que uma resposta completa seja construída.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Geração de texto com LLMs}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
                 \caption{Processo de Aprendizados das LLMs}
                 \includegraphics[width=6cm]{images/llm_learn.png}
                 \source{3Blue1Brown}
@@ -365,11 +343,33 @@ Utilizando Modelos de Linguagem de Larga Escala }
         \begin{column}{0.4\textwidth}
             \justify
             Os modelos aprendem a fazer predições através do processamento de
-            uma quantidade \textbf{extremamente grande de texto, geralmente adquirido da
-                internet}.
+            uma quantidade \textbf{extremamente grande de texto, geralmente
+                adquirido da internet}.
         \end{column}
     \end{columns}
 \end{frame}
+
+% \begin{frame}{Geração de texto com LLMs}
+%     \begin{columns}{}
+%         \begin{column}{0.6\textwidth}
+%             \begin{figure}
+%                 \centering
+%                 \caption{Geração de um Saida da LLM}
+%                 \includegraphics[width=6cm]{images/llm_generated_text.png}
+%                 \source{3Blue1Brown}
+%             \end{figure}
+%         \end{column}
+%         \begin{column}{0.4\textwidth}
+%             \justify
+%             \small{ Para gerar uma resposta, o texto é passado para LLM, que
+%                 calcula quais palavras (ou tokens) têm maior probabilidade de vir em
+%                 seguida. Uma dessas opções é \textbf{escolhida e anexada ao texto}.
+%                 Esse novo texto, agora com o token adicionado, é \textbf{usado como
+%                     nova entrada para a LLM}. Esse processo se \textbf{repete várias
+%                     vezes} até que uma resposta completa seja construída.}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
 
 \section{Trabalhos Relacionados}
 \begin{frame}{Word2World}
@@ -379,17 +379,17 @@ Utilizando Modelos de Linguagem de Larga Escala }
         \includegraphics[width=9cm]{images/word2world.png}
         \source{Word2World: Generating Stories and Worlds through Large Language Models \cite{nasir2024word2world}}
     \end{figure}
-    \only<1>{
-        \small{Tanto o trabalho Word2World quanto esse TCC definem um pipeline
-            para a geração de mapas utilizando LLMs sem a necessidade de fine tune
-            prévio.}
-    }
-    \only<2>{
-        \small{ A principal diferença está que no Word2World, a LLM cria a
-            própria história, ou seja, o usuário não tem controle da geração. Além
-            disso, o TCC visa a geração de mapas para jogos Roguelike, enquanto o
-            Word2World não gera mapas para um gênero específico.}
-    }
+    % \only<1>{
+    \small{Tanto o trabalho Word2World quanto esse TCC definem um pipeline
+        para a geração de mapas utilizando LLMs sem a necessidade de fine tune
+        prévio.}
+    % }
+    % \only<2>{
+    %     \small{ A principal diferença está que no Word2World, a LLM cria a
+    %         própria história, ou seja, o usuário não tem controle da geração. Além
+    %         disso, o TCC visa a geração de mapas para jogos Roguelike, enquanto o
+    %         Word2World não gera mapas para um gênero específico.}
+    % }
 \end{frame}
 
 \begin{frame}{MarioGPT}
@@ -399,39 +399,18 @@ Utilizando Modelos de Linguagem de Larga Escala }
         \includegraphics[width=9cm]{images/mario_gpt.png}
         \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models\cite{sudhakaran2023mariogpt}}
     \end{figure}
-    \only<1>{
-        \small{MarioGPT tem o mesmo objetivo de gerar mapas baseados em
-            descrições textuais, mas utiliza uma versão ajustada do GPT 2. A
-            utilização de fine-tuning traz a necessidade de uma grande amostra de
-            treino. No caso do MarioGPT foram utilizadas 200.000 amostras de mapas.}
-    }
-    \only<2>{
-        \small{A proposta do TCC remove a necessidade de fine-tuning ao se
-            utilizar de técnicas de engenharia de prompt. Sem contar a diferença de
-            gêneros, o MarioGPT gera mapas de platformers, enquanto o TCC se propõe
-        }
-    }
-\end{frame}
-
-\begin{frame}{MarioGPT}
-    \begin{figure}
-        \centering
-        \caption{Pipeline do Projeto MarioGPT}
-        \includegraphics[width=9cm]{images/mario_gpt.png}
-        \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models\cite{sudhakaran2023mariogpt}}
-    \end{figure}
-    \only<1>{
-        \small{MarioGPT tem o mesmo objetivo de gerar mapas baseados em
-            descrições textuais, mas utiliza uma versão ajustada do GPT 2. A
-            utilização de fine-tuning traz a necessidade de uma grande amostra de
-            treino. No caso do MarioGPT foram utilizadas 200.000 amostras de mapas.}
-    }
-    \only<2>{
-        \small{A proposta do TCC remove a necessidade de fine-tuning ao se
-            utilizar de técnicas de engenharia de prompt. Sem contar a diferença de
-            gêneros, o MarioGPT gera mapas de platformers, enquanto o TCC se propõe
-            a gerar mapas de Roguelikes.  }
-    }
+    % \only<1>{
+    \small{MarioGPT tem o mesmo objetivo de gerar mapas baseados em
+        descrições textuais, mas utiliza uma versão ajustada do GPT 2. A
+        utilização de fine-tuning traz a necessidade de uma grande amostra de
+        treino. No caso do MarioGPT foram utilizadas 200.000 amostras de mapas.}
+    % }
+    % \only<2>{
+    %     \small{A proposta do TCC remove a necessidade de fine-tuning ao se
+    %         utilizar de técnicas de engenharia de prompt. Sem contar a diferença de
+    %         gêneros, o MarioGPT gera mapas de platformers, enquanto o TCC se propõe
+    %     }
+    % }
 \end{frame}
 
 \begin{frame}{Game Environment Design Creator}
@@ -441,18 +420,18 @@ Utilizando Modelos de Linguagem de Larga Escala }
         \includegraphics[width=7cm]{images/design_creator.png}
         \source{Game Environment Design Creator Using Artificial Intelligence Procedural Generation \cite{auxtero2023game}}
     \end{figure}
-    \only<1>{
-        \small{O trabalho relacionado busca desenvolver uma ferramenta para
-            auxiliar pessoas sem conhecimento de game design e programação a criarem
-            jogos. O usuário escreve uma descrição e a LLM cria uma versão inicial
-            da sala, o que se assemelha com o objetivo text-to-level do TCC.}
-    }
-    \only<2>{
-        \small{Esse trabalho relacionado foca na experiência do usuário.
-            Enquanto esse TCC foca no pipeline de geração. Além disso, o trabalho
-            relacionado cria pequenas salas para jogos de visão de cima e não possui
-            um foco em um gênero específico.  }
-    }
+    % \only<1>{
+    \small{O trabalho relacionado busca desenvolver uma ferramenta para
+        auxiliar pessoas sem conhecimento de game design e programação a criarem
+        jogos. O usuário escreve uma descrição e a LLM cria uma versão inicial
+        da sala, o que se assemelha com o objetivo text-to-level do TCC.}
+    % }
+    % \only<2>{
+    %     \small{Esse trabalho relacionado foca na experiência do usuário.
+    %         Enquanto esse TCC foca no pipeline de geração. Além disso, o trabalho
+    %         relacionado cria pequenas salas para jogos de visão de cima e não possui
+    %         um foco em um gênero específico.  }
+    % }
 \end{frame}
 
 \begin{frame}{LLMaker}
@@ -467,17 +446,17 @@ Utilizando Modelos de Linguagem de Larga Escala }
         \end{column}
         \begin{column}{0.4\textwidth}
             \justify
-            \only<1>{
+            % \only<1>{
                 \small{O objetivo desse projeto é desenvolver uma ferramenta de design onde o
                     usuário conversa em um chat LLM e então a LLM converte a linguagem
                     natural em alterações no mapa.}
-            }
-            \only<2>{
-                \small{Uma semelhança ao TCC está na geração de mapas com LMMs para
-                    Dungeon Crawlers, gênero com estrutura muito parecida com os Roguelikes.
-                    Entretanto, o foco desse trabalho relacionado é converter texto do usuário e
-                    modificações no mapa gerado.}
-            }
+            % }
+            % \only<2>{
+            %     \small{Uma semelhança ao TCC está na geração de mapas com LMMs para
+            %         Dungeon Crawlers, gênero com estrutura muito parecida com os Roguelikes.
+            %         Entretanto, o foco desse trabalho relacionado é converter texto do usuário e
+            %         modificações no mapa gerado.}
+            % }
         \end{column}
     \end{columns}
 \end{frame}
@@ -744,10 +723,89 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \end{figure}
 \end{frame}
 
-\section{Conclusão}
-\begin{frame}{Conclusão}
+\begin{frame}{Roguelike}
+    Utilizando a \textit{game engine} Godot em sua versão 4.5.1, foi
+    desenvolvido um jogo \textit{Roguelike} capaz de processar um
+    \textit{AssetBundle} em formato JSON e transformá-lo em um mapa jogável.
 \end{frame}
 
+\begin{frame}{Roguelike}
+    \begin{figure}
+        \centering
+        \caption{Visão Geral da Interface}
+        \includegraphics[height=6cm]{images/full_vizion_of_the_game.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+% \begin{frame}{Roguelike}
+%     \begin{figure}
+%         \centering
+%         \caption{Sistema de Campo de Visão}
+%         \includegraphics[height=5cm]{images/field_of_view.png}
+%         \source{Elaborado pelo autor}
+%     \end{figure}
+% \end{frame}
+
+\begin{frame}{Roguelike}
+    \begin{figure}
+        \centering
+        \caption{Geração dos Níveis}
+        \includegraphics[width=11cm]{images/three_diferent_dungeons_generations.png}
+        \source{Elaborado pelo autor}
+    \end{figure}
+\end{frame}
+
+\section{Conclusão}
+\begin{frame}{Conclusão e Contribuições}
+    \begin{itemize}
+        \item<1-> \textbf{Arquitetura Híbrida de Sucesso}: A solução proposta
+              resolve a limitação de raciocínio espacial dos LLMs ao separar as
+              responsabilidades: algoritmos tradicionais cuidam da topologia (mapas)
+              enquanto o LLM atua como agente criativo (narrativa e itens).
+        \item<2-> \textbf{Mitigação de Alucinações via RAG}: A implementação de
+              Retrieval-Augmented Generation (RAG) com saídas estruturadas e um banco
+              vetorial segmentado (Entidades, Itens, Ambientes) garantiu a coerência
+              visual e temática do jogo.
+              \begin{itemize}
+                  \item <2-> \textbf{Contribuição de Dados}: O trabalho entrega um
+                        dataset relevante de 489 pares de descrições e imagens (pixel art),
+                        estabelecendo uma ponte técnica sólida entre linguagem natural e
+                        ativos visuais.
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusão e Contribuições}
+    \begin{itemize}
+        \item<1-> \textbf{Viabilidade Técnica Local}: Os testes mostraram que
+              modelos compactos executados localmente (20b) possuem desempenho
+              comparável a modelos gigantes (120b), provando que a tecnologia é
+              acessível em hardware de consumo, sem necessidade de nuvem.
+        \item<2-> \textbf{Eficiência Semântica e Coerência}: Através da métrica de
+              Reconstrução Semântica e de Coerência, comprovou-se que o sistema
+              preserva fielmente a intenção do usuário ao transformar texto em
+              elementos de jogo funcionais.
+        \item<3-> \textbf{Democratização do Desenvolvimento}: A integração entre
+              PCG clássico e IA Generativa reduz barreiras técnicas, permitindo a
+              criação de experiências de jogo customizadas e coerentes através de
+              linguagem natural.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Limitações e Trabalhos Futuros}
+    \begin{itemize}
+        \item<1-> \textbf{Texturas Dinâmicas com IA}: Substituir o banco de imagens
+              fixo por modelos de difusão (como Stable Diffusion) para gerar texturas
+              em tempo real, tornando o visual tão ilimitado quanto o texto.
+        \item<2-> \textbf{Cenários Complexos}: Evoluir a criação de objetos isolados
+              para a geração de conjuntos de elementos (prefabs), permitindo a
+              construção de micro-cenários mais detalhados e coesos.
+        \item<3-> \textbf{Expansão de Gêneros e Narrativa}: Adaptar o sistema para
+              outros tipos de jogos (como RPGs), incluindo a criação dinâmica de NPCs,
+              diálogos e missões personalizadas.
+    \end{itemize}
+\end{frame}
 
 %% ---------------------------------------------------------------------------
 % Reference frames
