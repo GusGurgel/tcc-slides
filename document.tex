@@ -53,126 +53,57 @@ Utilizando Modelos de Linguagem de Larga Escala }
 %% ---------------------------------------------------------------------------
 
 \section{Introdução}
-\begin{frame}{Panorama Atual do Mercado de Jogos}
-
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Global games market: growth drivers and challenges for 2025-2027}
-                \includegraphics[width=6cm]{images/games_2015_2027_revenue.png}
-                \source{Newzoo}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            \small{O gráfico demonstra o crescimento constante do mercado global de
-                jogos de 2015 a 2027, com uma previsão de aumento de 3.7\% da sua
-                receita entre 2025 e 2027. Com uma renda prevista de \textbf{\$198
-                    bilhões} em 2027, evidencia a importância desse mercado na economia
-                atual.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Crescimentos dos Jogos Roguelikes}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Balatro (2024)}
-                \includegraphics[width=6cm]{images/balatro.jpg}
-                \source{Wikipedia}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            \small{Balatro é um roguelike de construção de baralhos. \textbf{Foi um dos
-                    6 jogos indicados para jogo do ano no The Game Awards 2024}. Isso
-                mostra que, mesmo sendo um gênero antigo, ainda possui grande
-                destaque no mercado de jogos.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Crescimentos dos Jogos Roguelikes}
-    \begin{figure}
-        \centering
-        \caption{Hell Clock (2025): Roguelike brasileiro inspirado na Guerra dos Canudos}
-        \includegraphics[width=10cm]{images/hellclock.png}
-        \source{Steam}
-        \label{fig:ufc_emblem}
-    \end{figure}
-\end{frame}
-
-
-\begin{frame}{Geração Procedural de Conteúdo (PCG)}
-    \begin{figure}
-        \centering
-        \caption{Mapas gerados utilizando PCG (The Binding of Isaac)}
-        \includegraphics[width=9cm]{images/bind_of_issac_maps.png}
-        \source{Level Generation by Joining Geometry \cite{e2020procedural}}
-    \end{figure}
-    \small{Uma das principais características dos jogos Roguelike é a presença
-        de conteúdos gerados proceduralmente. Ou seja, conteúdos gerados por
-        algoritmos, geralmente utilizam geradores de números pseudo aleatórios.}
-\end{frame}
-
-\begin{frame}{Geração Procedural de Conteúdo (PCG)}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Gerador de Mapas com Diversos Parâmetros de Configuração}
-                \includegraphics[width=6cm]{images/pcg_config.png}
-                \source{Regressão para Predição de Mapas Gerados Proceduralmente. \cite{marchandaplicaccao}}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            \small{A geração desses conteúdos geralmente pode ser controlada por
-                parâmetros como tamanho do objeto gerado, quantidades de elementos ou até
-                sementes para o gerador pseudo aleatório.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{PCG + LLMs}
-    \begin{figure}
-        \centering
-        \caption{Geração de Mapas Utilizando Descrições Textuais}
-        \includegraphics[width=8cm]{images/prompt_to_level.png}
-        \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models \cite{sudhakaran2023mariogpt}}
-    \end{figure}
-    \small{Com o surgimento dos Modelos Transformers Generativos, surgem grandes
-        oportunidades de integrar essa tecnologia na geração procedural de conteúdo
-        em jogos. Permiteindo que o controle da geração seja feito por prompts
-        textuais, tornando a geração mais expressiva do que a configuração de
-        parâmetros predefinidos. }
-\end{frame}
-
-\begin{frame}{Objetivo Geral}
-    \justify
-    Desenvolver um sistema que recebe descrições textuais e, utilizando um LLM, traduz em um nível estruturado e jogável de um jogo no estilo roguelike
-\end{frame}
-
-\begin{frame}{Objetivos Específicos}
+\begin{frame}{Escopo Geral do Problema}
     \begin{itemize}
-        \item<1-> Desenvolver um pipeline de geração que receba uma descrição
-              textual como entrada e utilize um LLM para produzir uma representação de
-              mapa estruturada.
-        \item<2-> Investigar e aplicar técnicas de engenharia de prompt para guiar o
-              LLM de forma eficaz.
-        \item<3-> Implementar um protótipo funcional que integre o pipeline de
-              geração, capaz de processar os dados do mapa e renderizá-los
-              visualmente.
+        \item<1-> Segundo levantamentos da Newzoo, o mercado de jogos irá arrecadar
+              \textbf{\$198 bilhões} no ano de 2027.
+        \item<2-> Nesse mercado, os \textit{Roguelikes}, um gênero muito antigo
+              (1980), continua recebendo alto reconhecimento. Dentro jogos desse
+              gênero temos:
+              \begin{itemize}
+                  \item<3-> \textbf{Balatro (2024)}: Concorreu como um dos 6 melhores
+                        jogos de 2024.
+                  \item<4-> \textbf{Hell Clock (2025)}: Roguelike brasileiro inspirado na
+                        Guerra dos Canudos
+              \end{itemize}
+        \item<5-> Um característica predominate nos \textit{Roguelikes} é a
+              geração de conteúdos (items, missões, inimigos) através de algoritmos.
+        \item<6-> Em geral a geração desses conteúdos é guiada através de
+              \textbf{parâmetros numéricos, muitas vezes de difícil interpretação}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Solução PCG + LLMs}
+    \begin{itemize}
+        \item <1-> Os grandes modelos de linguagem oferecem alta capacidade de
+              interpretação de linguagem natural.
+        \item <2-> Assim, destaca-se a oportunidade utilizar LLMs em sistemas de
+              geração de conteúdo para jogos.
+        \item <3-> Dessa forma, permitindo um controle mais livre. Em vez de
+              inserir valores numéricos, o utilizador descreve o conteúdo a ser gerado
+              utilizando linguagem natural.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Objetivos}
+    \justify
+    Desenvolver um sistema que recebe descrições textuais e, utilizando um LLM,
+    traduz em um nível estruturado e jogável de um jogo no gênero
+    \textit{Roguelike}.
+    \begin{itemize}
+        \item<2-> Desenvolver um pipeline de geração que receba uma descrição
+              textual e produzir uma representação de mapa estruturada.
+        \item<3-> Investigar e aplicar técnicas de engenharia de prompt para
+              guiar o LLM de forma eficaz.
+        \item<4-> Implementar um protótipo capaz de processar os dados do mapa e
+              renderizá-los visualmente.
     \end{itemize}
 \end{frame}
 
 \section{Fundamentação}
-\begin{frame}{Oriegem dos Roguelikes}
+\begin{frame}{Origem dos \textit{Roguelikes}}
     \begin{columns}{}
-        \begin{column}{0.6\textwidth}
+        \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
                 \caption{Rogue (1980)}
@@ -180,293 +111,55 @@ Utilizando Modelos de Linguagem de Larga Escala }
                 \source{Wikipedia}
             \end{figure}
         \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            \small {Em 1980 surge \textbf{Rogue}, um jogo de terminal onde o
-                jogador explorar masmorras geradas aleatoriamente, enfrentando
-                monstros, coletando itens e tentando chegar ao final em uma única
-                vida.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-
-\begin{frame}{Oriegem dos Roguelikes}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Rogue (1980)}
-                \includegraphics[width=6cm]{images/rogue1980.png}
-                \source{Wikipedia}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            \small{ Esse jogo foi tão marcante que deu origem a um gênero
-                inteiro chamado Roguelike, que se baseia em elementos como:}
+        \begin{column}{0.5\textwidth}
             \begin{itemize}
-                \item <2-> Geração procedural.
-                \item <3-> Permadeath (morte permanente).
-                \item <4-> Exploração estratégica.
-                \item <5-> Alta rejogabilidade.
+                \item Em 1980 surge \textbf{Rogue}, um jogo de terminal onde o
+                      jogador explorar masmorras geradas aleatoriamente, enfrentando
+                      monstros, coletando itens e tentando chegar ao final em uma única
+                      vida.
+                \item Esse jogo foi tão marcante que deu origem a um gênero
+                      inteiro chamado Roguelike, que se baseia em elementos como:
+                      \begin{itemize}
+                          \item <2-> Geração procedural.
+                          \item <3-> Permadeath (morte permanente).
+                          \item <4-> Exploração estratégica.
+                          \item <5-> Alta rejogabilidade.
+                      \end{itemize}
             \end{itemize}
         \end{column}
     \end{columns}
 \end{frame}
 
-\begin{frame}{Procedural Content Generation (PCG)}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Diferentes Métodos de PCG}
-                \includegraphics[width=6cm]{images/pcg_methods.png}
-                \source{antoniosliapis.com}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \small{Procedural Content Generator (PCG) é uma técnica utilizada
-                no desenvolvimento de jogos para \textbf{criar conteúdo de forma
-                    automática, por meio de algoritmos e regras predefinidas}.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-% \begin{frame}{PCG Exemplo Random walk}
-%     Um exemplo muito simples de algoritmo de PCG é o \textbf{Random Walk}. Esse
-%     algoritmo gera caminhos aleatórios que podem ser utilizados para estruturar
-%     um mapa de um jogo. Ele é consiste na seguinte sequência de passos:
-%     \begin{enumerate}
-%         \item <2-> Começa em uma posição inicial.
-%         \item <3-> Anda aleatoriamente em uma das quatro direções.
-%         \item <4-> Marca os espaços por onde passa como "caminho"
-%         \item <5-> Repete esse processo por um número definido de passos ou até
-%               atingir uma porcentagem do mapa marcado.
-%     \end{enumerate}
-% \end{frame}
-
-% \begin{frame}{PCG Exemplo Random walk}
-%     \centering
-%     \only<1>{
-%         \begin{figure}
-%             \caption{Random Walk - Parte 1}
-%             \includegraphics[width=6cm]{images/randomwalk1.png}
-%             \source{Wikipedia}
-%         \end{figure}
-%     }
-%     \only<2>{
-%         \begin{figure}
-%             \caption{Random Walk - Parte 2}
-%             \includegraphics[width=6cm]{images/randomwalk2.png}
-%             \source{Wikipedia}
-%         \end{figure}
-%     }
-%     \only<3>{
-%         \begin{figure}
-%             \caption{Random Walk - Parte 3}
-%             \includegraphics[width=6cm]{images/randomwalk3.png}
-%             \source{Wikipedia}
-%         \end{figure}
-%     }
-%     \only<4>{
-%         \begin{figure}
-%             \caption{Random Walk - Parte 4}
-%             \includegraphics[width=6cm]{images/randomwalk4.png}
-%             \source{Wikipedia}
-%         \end{figure}
-%     }
-%     \only<5>{
-%         \begin{figure}
-%             \caption{Random Walk - Parte 5}
-%             \includegraphics[width=6cm]{images/randomwalk5.png}
-%             \source{Wikipedia}
-%         \end{figure}
-%     }
-%     \only<6>{
-%         \begin{figure}
-%             \caption{Random Walk - Parte 6}
-%             \includegraphics[width=6cm]{images/randomwalk6.png}
-%             \source{Wikipedia}
-%         \end{figure}
-%     }
-% \end{frame}
-
 \begin{frame}{Geração de texto com LLMs}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{LLMs}
-                \includegraphics[width=6cm]{images/llms_examples.jpg}
-                \source{blog.n8n.io}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            Em contraste com algoritmos simples que marcam espaços bidimensionais de
-            forma aleatória, temos a \textbf{geração de texto utilizando LLMs}.
-        \end{column}
-    \end{columns}
+    \begin{itemize}
+        \item<1-> Outro exemplo de geração de conteúdo é a geração de texto
+              utilizando LLMs.
+        \item<2-> Fatores como definição da arquitetura
+              \textit{Transformer}, maior capacidade computacional e volumes
+              gigantescos de dados textuais permitiram o surgimento de Modelos
+              de Linguagem com capacidades notáveis no processamento de
+              linguagem natural.
+    \end{itemize}
 \end{frame}
-
-\begin{frame}{Geração de texto com LLMs}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Probabilidades retornadas pela LLM}
-                \includegraphics[width=6cm]{images/llm_probabilities.png}
-                \source{3Blue1Brown}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            Em uma visão de alto nível, LLMs são \textbf{funções matemáticas
-                extremamente sofisticadas} que recebem um trecho de texto como
-            entrada e retornam os tokens com maior probabilidade de
-            continuar esse texto de forma coerente.
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Geração de texto com LLMs}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Processo de Aprendizados das LLMs}
-                \includegraphics[width=6cm]{images/llm_learn.png}
-                \source{3Blue1Brown}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            Os modelos aprendem a fazer predições através do processamento de
-            uma quantidade \textbf{extremamente grande de texto, geralmente
-                adquirido da internet}.
-        \end{column}
-    \end{columns}
-\end{frame}
-
-% \begin{frame}{Geração de texto com LLMs}
-%     \begin{columns}{}
-%         \begin{column}{0.6\textwidth}
-%             \begin{figure}
-%                 \centering
-%                 \caption{Geração de um Saida da LLM}
-%                 \includegraphics[width=6cm]{images/llm_generated_text.png}
-%                 \source{3Blue1Brown}
-%             \end{figure}
-%         \end{column}
-%         \begin{column}{0.4\textwidth}
-%             \justify
-%             \small{ Para gerar uma resposta, o texto é passado para LLM, que
-%                 calcula quais palavras (ou tokens) têm maior probabilidade de vir em
-%                 seguida. Uma dessas opções é \textbf{escolhida e anexada ao texto}.
-%                 Esse novo texto, agora com o token adicionado, é \textbf{usado como
-%                     nova entrada para a LLM}. Esse processo se \textbf{repete várias
-%                     vezes} até que uma resposta completa seja construída.}
-%         \end{column}
-%     \end{columns}
-% \end{frame}
 
 \section{Trabalhos Relacionados}
-\begin{frame}{Word2World}
+\begin{frame}{Trabalhos Relacionaos}
+    Utilizando a proficiência dos LLMs no processamento de linguagem natural, os
+    seguintes trabalhos exploram a aplicação desses modelos na geração de mapas:
     \begin{figure}
         \centering
-        \caption{Pipeline do Projeto Word2World}
-        \includegraphics[width=9cm]{images/word2world.png}
-        \source{Word2World: Generating Stories and Worlds through Large Language Models \cite{nasir2024word2world}}
+        \caption{Trabalhos Relacionados}
+        \includegraphics[width=11cm]{images/trabalhos_relacionados.png}
+        \source{Elaborado pelo autor}
     \end{figure}
-    % \only<1>{
-    \small{Tanto o trabalho Word2World quanto esse TCC definem um pipeline
-        para a geração de mapas utilizando LLMs sem a necessidade de fine tune
-        prévio.}
-    % }
-    % \only<2>{
-    %     \small{ A principal diferença está que no Word2World, a LLM cria a
-    %         própria história, ou seja, o usuário não tem controle da geração. Além
-    %         disso, o TCC visa a geração de mapas para jogos Roguelike, enquanto o
-    %         Word2World não gera mapas para um gênero específico.}
-    % }
-\end{frame}
-
-\begin{frame}{MarioGPT}
-    \begin{figure}
-        \centering
-        \caption{Pipeline do Projeto MarioGPT}
-        \includegraphics[width=9cm]{images/mario_gpt.png}
-        \source{MarioGPT: Open-Ended Text2Level Generation through Large Language Models\cite{sudhakaran2023mariogpt}}
-    \end{figure}
-    % \only<1>{
-    \small{MarioGPT tem o mesmo objetivo de gerar mapas baseados em
-        descrições textuais, mas utiliza uma versão ajustada do GPT 2. A
-        utilização de fine-tuning traz a necessidade de uma grande amostra de
-        treino. No caso do MarioGPT foram utilizadas 200.000 amostras de mapas.}
-    % }
-    % \only<2>{
-    %     \small{A proposta do TCC remove a necessidade de fine-tuning ao se
-    %         utilizar de técnicas de engenharia de prompt. Sem contar a diferença de
-    %         gêneros, o MarioGPT gera mapas de platformers, enquanto o TCC se propõe
-    %     }
-    % }
-\end{frame}
-
-\begin{frame}{Game Environment Design Creator}
-    \begin{figure}
-        \centering
-        \caption{Pipeline e Interface do Projeto}
-        \includegraphics[width=7cm]{images/design_creator.png}
-        \source{Game Environment Design Creator Using Artificial Intelligence Procedural Generation \cite{auxtero2023game}}
-    \end{figure}
-    % \only<1>{
-    \small{O trabalho relacionado busca desenvolver uma ferramenta para
-        auxiliar pessoas sem conhecimento de game design e programação a criarem
-        jogos. O usuário escreve uma descrição e a LLM cria uma versão inicial
-        da sala, o que se assemelha com o objetivo text-to-level do TCC.}
-    % }
-    % \only<2>{
-    %     \small{Esse trabalho relacionado foca na experiência do usuário.
-    %         Enquanto esse TCC foca no pipeline de geração. Além disso, o trabalho
-    %         relacionado cria pequenas salas para jogos de visão de cima e não possui
-    %         um foco em um gênero específico.  }
-    % }
-\end{frame}
-
-\begin{frame}{LLMaker}
-    \begin{columns}{}
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \caption{Interface do LLMaker}
-                \includegraphics[width=6cm]{images/llmaker.png}
-                \source{Consistent Game Content Creation via Function Calling for Large Language Models \cite{gallotta2024consistent}}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \justify
-            % \only<1>{
-                \small{O objetivo desse projeto é desenvolver uma ferramenta de design onde o
-                    usuário conversa em um chat LLM e então a LLM converte a linguagem
-                    natural em alterações no mapa.}
-            % }
-            % \only<2>{
-            %     \small{Uma semelhança ao TCC está na geração de mapas com LMMs para
-            %         Dungeon Crawlers, gênero com estrutura muito parecida com os Roguelikes.
-            %         Entretanto, o foco desse trabalho relacionado é converter texto do usuário e
-            %         modificações no mapa gerado.}
-            % }
-        \end{column}
-    \end{columns}
 \end{frame}
 
 \section{Metodologia}
-\begin{frame}{Metodologia do Trablaho}
+\begin{frame}{Metodologia do Trabalho}
     \begin{figure}
         \centering
         \caption{Fluxograma da Metodologia}
-        \includegraphics[width=10cm]{images/metodologia.png}
+        \includegraphics[width=11cm]{images/metodologia.png}
         \source{Elaborado pelo autor}
     \end{figure}
 \end{frame}
@@ -485,63 +178,33 @@ Utilizando Modelos de Linguagem de Larga Escala }
 \end{frame}
 
 \begin{frame}{Implementação do Gerador de Assets}
-    \begin{figure}
-        \centering
-        \caption{Structured Outputs}
-        \includegraphics[width=7cm]{images/structured_outputs.png}
-        \source{humanloop.com}
-    \end{figure}
-    \small{Um dos desafios recorrentes na utilização de LLMs em sistemas
-        de software é a natureza não determinística e não estruturada das saídas
-        textuais. Para mitigar esse problema e garantir que o Gerador de Assets
-        produza objetos de jogo válidos, empregou-se o conceito de
-        \textit{Structured Outputs}.}
+    \begin{itemize}
+        \item<1-> \textbf{Problema 1}: Saídas não estruturadas dos LLMs não são
+              processáveis pelo Gerador de Mapas.
+        \item<1-> \textbf{Solução}: Utilização da técnica de \textit{Structured
+                  Outputs}.  Uso modelos ajustados para responder seguindo um esquema
+              JSON.
+    \end{itemize}
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item<2-> \textbf{Problema 2}: O LLM gera saídas textuais, porém o jogo precisa
+              de ativos visuais para representar items, inimigos e ambientes.
+        \item<2-> \textbf{Solução}: Utilização da técnica de \textit{RAG}. Um banco
+              vetorial guarda tuplas de descrições e images. O código pode utilizar
+              saídas textuais do LLM para recuperar imagens.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Implementação do Gerador de Assets}
     \begin{figure}
         \centering
-        \caption{RAG}
-        \includegraphics[width=7cm]{images/rag.png}
-        \source{medium.com/@drjulija}
+        \caption{Funções de Query do Banco}
+        \includegraphics[width=8cm]{images/query_vector_store.png}
+        \source{Elaborado pelo autor}
     \end{figure}
-    \small{Utiliza-se o RAG para integrar a capacidade gerativa de LLMs à
-        recuperação de ativos visuais em bancos vetoriais, viabilizando a geração
-        procedural de mundos 2D baseada em semântica.}
-\end{frame}
-
-\begin{frame}{Implementação do Gerador de Assets}
-    \begin{figure}
-        \centering
-        \caption{Kenney 1-Bit Pack}
-        \includegraphics[width=7cm]{images/kenney-1-bit-pack.png}
-        \source{kenney.nl}
-    \end{figure}
-    \small{A base visual do sistema foi construída a partir do \textit{"1-Bit
-            Pack"} disponibilizado pelo site \textit{Kenney} sob licença
-        \textit{Creative Commons CC0}. A escolha deste conjunto deve-se à sua alta
-        diversidade temática}
-\end{frame}
-
-\begin{frame}{Implementação do Gerador de Assets}
-    \only<1>{
-        \begin{itemize}
-            \item \textbf{Entities} (88 descrições): Inclui inimigos, NPCs e o
-                  avatar do jogador.
-            \item \textbf{Items} (183 descrições): Abrange poções, armas, armaduras,
-                  chaves e tesouros.
-            \item \textbf{Environments} (218 descrições): Contém paredes, pisos,
-                  obstáculos naturais e vegetação.
-        \end{itemize}
-    }
-    \only<2>{
-        \begin{figure}
-            \centering
-            \caption{Funções de Query do Banco}
-            \includegraphics[width=10cm]{images/query_vector_store.png}
-            \source{Elaborado pelo autor}
-        \end{figure}
-    }
+    \small{Utilizando o pacote de tiles "Kenney 1-Bit Pack"\ foram feitos 3
+        bancos vetoriais: Entities (88 items), Items (183 items) e
+        Environment(218 items)}
 \end{frame}
 
 \begin{frame}{Implementação do Gerador de Assets}
@@ -631,30 +294,28 @@ Utilizando Modelos de Linguagem de Larga Escala }
 
 \begin{frame}{Configuração Experimental}
     \begin{itemize}
-        \item Configurações do Gerador de Assets:
+        \item<1-> Modelos escolhidos para geração:
               \begin{itemize}
-                  \item \textbf{Níveis da Masmorra:} 6 níveis de profundidade.
-                  \item \textbf{Inimigos:} 20 variações de inimigos.
-                  \item \textbf{Armas:} 30 tipos de armas.
+                  \item<1-> \textbf{Llama-4 Maverick (17B)}: Modelo massivo (400B totais) especializado em seguir instruções.
+                  \item<1-> \textbf{GPT-OSS-120B}: Modelo de grande porte para referência de alta performance.
+                  \item<1-> \textbf{GPT-OSS-20B}: Modelo reduzido e eficiente, ideal para rodar em computadores locais.
               \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Configuração Experimental}
-    \begin{itemize}
-        \item Modelos escolhidos para geração:
-              \begin{itemize}
-                  \item \textbf{Llama-4 Maverick (17B)}: Modelo massivo (400B totais) especializado em seguir instruções.
-                  \item \textbf{GPT-OSS-120B}: Modelo de grande porte para referência de alta performance.
-                  \item \textbf{GPT-OSS-20B}: Modelo reduzido e eficiente, ideal para rodar em computadores locais.
-              \end{itemize}
-        \item \textbf{text-embedding-004}: Modelo de \textit{embeddings} usado
+        \item<2-> \textbf{text-embedding-004}: Modelo de \textit{embeddings} usado
               no \textbf{RAG} e no cálculo da métrica de \textbf{Reconstrução Semântica}.
-        \item \textbf{Gemini 3 Pro}: Modelo usado como "Juiz" na métrica de \textbf{Coerência}.
+        \item<3-> \textbf{Gemini 3 Pro}: Modelo usado como "Juiz" na métrica de \textbf{Coerência}.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Configuração Experimental}
+    \only<1>{
+    Configurações do Gerador de Assets:
+    \begin{itemize}
+        \item \textbf{Níveis da Masmorra:} 6 níveis de profundidade.
+        \item \textbf{Inimigos:} 20 variações de inimigos.
+        \item \textbf{Armas:} 30 tipos de armas.
+    \end{itemize}
+    }
+    \vspace{0.5cm}
     Os testes foram conduzidos sobre cinco \textit{prompts} (P1 a P5) abrangendo
     temas distintos, comuns ao gênero \textit{roguelike}:
     \begin{itemize}
@@ -670,30 +331,28 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \begin{figure}
         \centering
         \caption{Resultados da Métrica de Coerência (0-100)}
-        \includegraphics[width=10cm]{images/coerencia.png}
+        \includegraphics[width=8cm]{images/coerencia.png}
         \source{Elaborado pelo autor}
     \end{figure}
-\end{frame}
 
-\begin{frame}{Análise Quantitativa}
     \begin{figure}
         \centering
         \caption{Resultados da Métrica de Reconstrução (Similaridade de Cosseno)}
-        \includegraphics[width=10cm]{images/reconstrucao.png}
+        \includegraphics[width=8cm]{images/reconstrucao.png}
         \source{Elaborado pelo autor}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
-    A Void-Strider Ark é uma colossal nave mineradora à deriva, envolta em uma
-    atmosfera industrial sombria e decadente, onde a inteligência artificial
-    AURORA, corrompida após uma anomalia gravitacional, transformou sistemas de
-    segurança e drones em carrascos implacáveis contra qualquer presença
-    orgânica. Nesse labirinto de metal e sombras, o jogador deve enfrentar
-    riscos letais como vazamentos de vácuo, radiação e armadilhas elétricas,
-    navegando por ambientes de estética e iluminação severa para subverter a
-    lógica distorcida da IA, alcançar a ponte de comando e retomar o controle do
-    reator central.
+    \begin{itemize}
+        \item<1-> A \textbf{Void-Strider Ark} é uma colossal nave mineradora à deriva,
+        envolta em uma atmosfera industrial sombria e decadente.
+        \item<2-> A inteligência artificial \textbf{AURORA}, corrompida após uma
+        anomalia gravitacional, transformou \textbf{sistemas de segurança e
+        drones em carrascos implacáveis} contra qualquer presença orgânica.
+        \item<3-> O jogador deve enfrentar riscos letais, alcançar a \textbf{ponte
+        de comando} e \textbf{retomar o controle do reator central}.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
@@ -708,49 +367,35 @@ Utilizando Modelos de Linguagem de Larga Escala }
 \begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
     \begin{figure}
         \centering
-        \caption{Inimigos}
-        \includegraphics[height=6cm]{images/prompt2_gpt_120b_enemies.png}
-        \source{Elaborado pelo autor}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
-    \begin{figure}
-        \centering
         \caption{Armas}
-        \includegraphics[height=6cm]{images/prompt2_gpt_120b_weapons.png}
+        \includegraphics[height=6cm]{images/prompt2_gpt_120b_weapons_and_items.png}
         \source{Elaborado pelo autor}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Roguelike}
-    Utilizando a \textit{game engine} Godot em sua versão 4.5.1, foi
-    desenvolvido um jogo \textit{Roguelike} capaz de processar um
-    \textit{AssetBundle} em formato JSON e transformá-lo em um mapa jogável.
+    \begin{columns}{}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \caption{Visão Geral da Interface}
+                \includegraphics[height=6cm]{images/full_vizion_of_the_game.png}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \justify
+            Utilizando a \textit{game engine} Godot em sua versão 4.5.1, foi
+            desenvolvido um jogo \textit{Roguelike} \textbf{capaz de processar um
+                \textit{AssetBundle} em formato JSON e transformá-lo em um mapa
+                jogável}.
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Roguelike}
     \begin{figure}
         \centering
-        \caption{Visão Geral da Interface}
-        \includegraphics[height=6cm]{images/full_vizion_of_the_game.png}
-        \source{Elaborado pelo autor}
-    \end{figure}
-\end{frame}
-
-% \begin{frame}{Roguelike}
-%     \begin{figure}
-%         \centering
-%         \caption{Sistema de Campo de Visão}
-%         \includegraphics[height=5cm]{images/field_of_view.png}
-%         \source{Elaborado pelo autor}
-%     \end{figure}
-% \end{frame}
-
-\begin{frame}{Roguelike}
-    \begin{figure}
-        \centering
-        \caption{Geração dos Níveis}
+        \caption{Visão Completa de 3 Níveis Gerados}
         \includegraphics[width=11cm]{images/three_diferent_dungeons_generations.png}
         \source{Elaborado pelo autor}
     \end{figure}
@@ -763,16 +408,12 @@ Utilizando Modelos de Linguagem de Larga Escala }
               resolve a limitação de raciocínio espacial dos LLMs ao separar as
               responsabilidades: algoritmos tradicionais cuidam da topologia (mapas)
               enquanto o LLM atua como agente criativo (narrativa e itens).
-        \item<2-> \textbf{Mitigação de Alucinações via RAG}: A implementação de
-              Retrieval-Augmented Generation (RAG) com saídas estruturadas e um banco
-              vetorial segmentado (Entidades, Itens, Ambientes) garantiu a coerência
-              visual e temática do jogo.
-              \begin{itemize}
-                  \item <2-> \textbf{Contribuição de Dados}: O trabalho entrega um
-                        dataset relevante de 489 pares de descrições e imagens (pixel art),
-                        estabelecendo uma ponte técnica sólida entre linguagem natural e
-                        ativos visuais.
-              \end{itemize}
+        \item <2-> \textbf{Contribuição de Dados}: O trabalho entrega um dataset
+              relevante de 489 pares de descrições e imagens (pixel art).
+        \item<3-> \textbf{Eficiência Semântica e Coerência}: Através das
+              métricas de Reconstrução Semântica e de Coerência, comprovou-se que o
+              sistema preserva fielmente a intenção do usuário ao transformar texto em
+              elementos de jogo funcionais.
     \end{itemize}
 \end{frame}
 
@@ -780,30 +421,31 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \begin{itemize}
         \item<1-> \textbf{Viabilidade Técnica Local}: Os testes mostraram que
               modelos compactos executados localmente (20b) possuem desempenho
-              comparável a modelos gigantes (120b), provando que a tecnologia é
-              acessível em hardware de consumo, sem necessidade de nuvem.
-        \item<2-> \textbf{Eficiência Semântica e Coerência}: Através da métrica de
-              Reconstrução Semântica e de Coerência, comprovou-se que o sistema
-              preserva fielmente a intenção do usuário ao transformar texto em
-              elementos de jogo funcionais.
-        \item<3-> \textbf{Democratização do Desenvolvimento}: A integração entre
-              PCG clássico e IA Generativa reduz barreiras técnicas, permitindo a
-              criação de experiências de jogo customizadas e coerentes através de
+              comparável a modelos grandes (120b).
+        \item<2-> \textbf{Democratização do Desenvolvimento}: O projeto permite
+              a criação de experiências de jogo customizadas e coerentes através de
               linguagem natural.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Limitações e Trabalhos Futuros}
     \begin{itemize}
-        \item<1-> \textbf{Texturas Dinâmicas com IA}: Substituir o banco de imagens
-              fixo por modelos de difusão (como Stable Diffusion) para gerar texturas
-              em tempo real, tornando o visual tão ilimitado quanto o texto.
-        \item<2-> \textbf{Cenários Complexos}: Evoluir a criação de objetos isolados
-              para a geração de conjuntos de elementos (prefabs), permitindo a
-              construção de micro-cenários mais detalhados e coesos.
-        \item<3-> \textbf{Expansão de Gêneros e Narrativa}: Adaptar o sistema para
-              outros tipos de jogos (como RPGs), incluindo a criação dinâmica de NPCs,
-              diálogos e missões personalizadas.
+        \item<1-> \textbf{Limitação}: Os bancos vetoriais tem sua expressividade
+              limitada pela quantidade de tiles disponíveis.
+        \item<1-> \textbf{Possível Solução}: Modelos de difusão (como Stable
+              Diffusion) para gerar texturas em tempo real
+              \vspace{0.2cm}
+        \item<2-> \textbf{Limitação}: O sistema apenas gera objetos unitários
+              isolados.
+        \item<2-> \textbf{Possível Solução}: Evoluir geração de conjuntos de
+              elementos, permitindo a construção de micro-cenários mais detalhados e
+              coesos.
+              \vspace{0.2cm}
+        \item<3-> \textbf{Limitação}: O projeto é focado apenas na geração de
+              mapas para jogos Roguelikes.
+              isolados.
+        \item<3-> \textbf{Possível Solução}: Adaptar o sistema para outros tipos
+              de jogos como RPGs, jogos de estratégia, jogos plataforma...
     \end{itemize}
 \end{frame}
 
