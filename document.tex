@@ -68,20 +68,19 @@ Utilizando Modelos de Linguagem de Larga Escala }
               \end{itemize}
         \item<5-> Um característica predominate nos \textit{Roguelikes} é a
               geração de conteúdos (items, missões, inimigos) através de algoritmos.
-        \item<6-> Em geral a geração desses conteúdos é guiada através de
+        \item<6-> \textbf{Problema:} Em geral, a geração desses conteúdos é guiada através de
               \textbf{parâmetros numéricos, muitas vezes de difícil interpretação}.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Solução PCG + LLMs}
+\begin{frame}{Solução: PCG + LLMs}
     \begin{itemize}
         \item <1-> Os grandes modelos de linguagem oferecem alta capacidade de
               interpretação de linguagem natural.
         \item <2-> Assim, destaca-se a oportunidade utilizar LLMs em sistemas de
               geração de conteúdo para jogos.
-        \item <3-> Dessa forma, permitindo um controle mais livre. Em vez de
-              inserir valores numéricos, o utilizador descreve o conteúdo a ser gerado
-              utilizando linguagem natural.
+        \item <3-> Em vez de inserir valores numéricos, o utilizador descreve o
+              conteúdo a ser gerado utilizando linguagem natural.
     \end{itemize}
 \end{frame}
 
@@ -92,7 +91,7 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \textit{Roguelike}.
     \begin{itemize}
         \item<2-> Desenvolver um pipeline de geração que receba uma descrição
-              textual e produzir uma representação de mapa estruturada.
+              textual e produza uma representação de mapa estruturada.
         \item<3-> Investigar e aplicar técnicas de engenharia de prompt para
               guiar o LLM de forma eficaz.
         \item<4-> Implementar um protótipo capaz de processar os dados do mapa e
@@ -117,13 +116,13 @@ Utilizando Modelos de Linguagem de Larga Escala }
                       jogador explorar masmorras geradas aleatoriamente, enfrentando
                       monstros, coletando itens e tentando chegar ao final em uma única
                       vida.
-                \item Esse jogo foi tão marcante que deu origem a um gênero
+                \item<2-> Esse jogo foi tão marcante que deu origem a um gênero
                       inteiro chamado Roguelike, que se baseia em elementos como:
                       \begin{itemize}
-                          \item <2-> Geração procedural.
-                          \item <3-> Permadeath (morte permanente).
-                          \item <4-> Exploração estratégica.
-                          \item <5-> Alta rejogabilidade.
+                          \item <3-> Geração procedural.
+                          \item <4-> Permadeath (morte permanente).
+                          \item <5-> Exploração estratégica.
+                          \item <6-> Alta rejogabilidade.
                       \end{itemize}
             \end{itemize}
         \end{column}
@@ -144,14 +143,18 @@ Utilizando Modelos de Linguagem de Larga Escala }
 
 \section{Trabalhos Relacionados}
 \begin{frame}{Trabalhos Relacionaos}
-    Utilizando a proficiência dos LLMs no processamento de linguagem natural, os
-    seguintes trabalhos exploram a aplicação desses modelos na geração de mapas:
-    \begin{figure}
-        \centering
-        \caption{Trabalhos Relacionados}
-        \includegraphics[width=11cm]{images/trabalhos_relacionados.png}
-        \source{Elaborado pelo autor}
-    \end{figure}
+    \only<1>{
+        Utilizando a proficiência dos LLMs no processamento de linguagem natural, os
+        seguintes trabalhos exploram a aplicação desses modelos na geração de mapas:
+    }
+    \only<2> {
+        \begin{figure}
+            \centering
+            \caption{Trabalhos Relacionados}
+            \includegraphics[width=11cm]{images/trabalhos_relacionados.png}
+            \source{Elaborado pelo autor}
+        \end{figure}
+    }
 \end{frame}
 
 \section{Metodologia}
@@ -181,15 +184,15 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \begin{itemize}
         \item<1-> \textbf{Problema 1}: Saídas não estruturadas dos LLMs não são
               processáveis pelo Gerador de Mapas.
-        \item<1-> \textbf{Solução}: Utilização da técnica de \textit{Structured
+        \item<2-> \textbf{Solução}: Utilização da técnica de \textit{Structured
                   Outputs}.  Uso modelos ajustados para responder seguindo um esquema
               JSON.
     \end{itemize}
     \vspace{0.5cm}
     \begin{itemize}
-        \item<2-> \textbf{Problema 2}: O LLM gera saídas textuais, porém o jogo precisa
+        \item<3-> \textbf{Problema 2}: O LLM gera saídas textuais, porém o jogo precisa
               de ativos visuais para representar items, inimigos e ambientes.
-        \item<2-> \textbf{Solução}: Utilização da técnica de \textit{RAG}. Um banco
+        \item<4-> \textbf{Solução}: Utilização da técnica de \textit{RAG}. Um banco
               vetorial guarda tuplas de descrições e images. O código pode utilizar
               saídas textuais do LLM para recuperar imagens.
     \end{itemize}
@@ -204,7 +207,7 @@ Utilizando Modelos de Linguagem de Larga Escala }
     \end{figure}
     \small{Utilizando o pacote de tiles "Kenney 1-Bit Pack"\ foram feitos 3
         bancos vetoriais: Entities (88 items), Items (183 items) e
-        Environment(218 items)}
+        Environment (218 items)}
 \end{frame}
 
 \begin{frame}{Implementação do Gerador de Assets}
@@ -308,12 +311,12 @@ Utilizando Modelos de Linguagem de Larga Escala }
 
 \begin{frame}{Configuração Experimental}
     \only<1>{
-    Configurações do Gerador de Assets:
-    \begin{itemize}
-        \item \textbf{Níveis da Masmorra:} 6 níveis de profundidade.
-        \item \textbf{Inimigos:} 20 variações de inimigos.
-        \item \textbf{Armas:} 30 tipos de armas.
-    \end{itemize}
+        Configurações do Gerador de Assets:
+        \begin{itemize}
+            \item \textbf{Níveis da Masmorra:} 6 níveis de profundidade.
+            \item \textbf{Inimigos:} 20 variações de inimigos.
+            \item \textbf{Armas:} 30 tipos de armas.
+        \end{itemize}
     }
     \vspace{0.5cm}
     Os testes foram conduzidos sobre cinco \textit{prompts} (P1 a P5) abrangendo
@@ -346,12 +349,12 @@ Utilizando Modelos de Linguagem de Larga Escala }
 \begin{frame}{Análise Qualitativa (GPT-120b com P2, tema Sci-Fi)}
     \begin{itemize}
         \item<1-> A \textbf{Void-Strider Ark} é uma colossal nave mineradora à deriva,
-        envolta em uma atmosfera industrial sombria e decadente.
+              envolta em uma atmosfera industrial sombria e decadente.
         \item<2-> A inteligência artificial \textbf{AURORA}, corrompida após uma
-        anomalia gravitacional, transformou \textbf{sistemas de segurança e
-        drones em carrascos implacáveis} contra qualquer presença orgânica.
+              anomalia gravitacional, transformou \textbf{sistemas de segurança e
+                  drones em carrascos implacáveis} contra qualquer presença orgânica.
         \item<3-> O jogador deve enfrentar riscos letais, alcançar a \textbf{ponte
-        de comando} e \textbf{retomar o controle do reator central}.
+                  de comando} e \textbf{retomar o controle do reator central}.
     \end{itemize}
 \end{frame}
 
@@ -410,7 +413,7 @@ Utilizando Modelos de Linguagem de Larga Escala }
               enquanto o LLM atua como agente criativo (narrativa e itens).
         \item <2-> \textbf{Contribuição de Dados}: O trabalho entrega um dataset
               relevante de 489 pares de descrições e imagens (pixel art).
-        \item<3-> \textbf{Eficiência Semântica e Coerência}: Através das
+        \item<3-> \textbf{Coerência e Eficiência Semântica}: Através das
               métricas de Reconstrução Semântica e de Coerência, comprovou-se que o
               sistema preserva fielmente a intenção do usuário ao transformar texto em
               elementos de jogo funcionais.
@@ -430,21 +433,20 @@ Utilizando Modelos de Linguagem de Larga Escala }
 
 \begin{frame}{Limitações e Trabalhos Futuros}
     \begin{itemize}
-        \item<1-> \textbf{Limitação}: Os bancos vetoriais tem sua expressividade
+        \item<1-> \textbf{Limitação 1}: Os bancos vetoriais tem sua expressividade
               limitada pela quantidade de tiles disponíveis.
-        \item<1-> \textbf{Possível Solução}: Modelos de difusão (como Stable
+        \item<2-> \textbf{Possível Solução}: Modelos de difusão (como Stable
               Diffusion) para gerar texturas em tempo real
               \vspace{0.2cm}
-        \item<2-> \textbf{Limitação}: O sistema apenas gera objetos unitários
+        \item<3-> \textbf{Limitação 2}: O sistema apenas gera objetos unitários
               isolados.
-        \item<2-> \textbf{Possível Solução}: Evoluir geração de conjuntos de
+        \item<4-> \textbf{Possível Solução}: Evoluir geração de conjuntos de
               elementos, permitindo a construção de micro-cenários mais detalhados e
               coesos.
               \vspace{0.2cm}
-        \item<3-> \textbf{Limitação}: O projeto é focado apenas na geração de
+        \item<5-> \textbf{Limitação 3}: O projeto é focado apenas na geração de
               mapas para jogos Roguelikes.
-              isolados.
-        \item<3-> \textbf{Possível Solução}: Adaptar o sistema para outros tipos
+        \item<6-> \textbf{Possível Solução}: Adaptar o sistema para outros tipos
               de jogos como RPGs, jogos de estratégia, jogos plataforma...
     \end{itemize}
 \end{frame}
